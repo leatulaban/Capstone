@@ -14,10 +14,10 @@ const Packages = () => {
                 <h2>Rates</h2>
                 <Button className="packageButton"
                         variant="contained" 
-                        color="error" 
+                        color="success" 
                         style= {{marginLeft:"250px",marginTop:"-80px",width:"120px",height:"45px"}}
                 >
-                <Link to='/cart'>Book Now! </Link></Button>
+                <Link to='/login'>Book Now! </Link></Button>
                 <ul>
                     <li>
                         <span className="Rate">Band rehearsal</span>

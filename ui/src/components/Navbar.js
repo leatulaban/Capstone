@@ -23,7 +23,7 @@ const Navbar = () => {
 	}
 
 	const handleBooking =() => {
-		navigate('/cart');
+		navigate('/login');
 	}
 
 	return (

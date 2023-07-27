@@ -69,7 +69,7 @@ function Login () {
       <Box component="form" className="boxForm" >
         {error && <Alert severity="warning">{error}</Alert> }     
         <Grid container spacing={0} className = 'formAlign'> 
-          <Grid id="formTop" item xs={12} sm={4} className='fontSize' >Email: 
+          <Grid id="formTop" item xs={12} sm={4} className='fontSize' >
               <TextField 
               fullWidth
               required
@@ -83,7 +83,7 @@ function Login () {
           </Grid>
         </Grid>
         <Grid container spacing={0} className = 'formAlign'>
-          <Grid item xs={12} sm={4}  className='fontSize'> Password:
+          <Grid item xs={12} sm={4}  className='fontSize'>
               <TextField 
               fullWidth
               required
