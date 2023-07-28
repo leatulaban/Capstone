@@ -1,10 +1,19 @@
 
+.boxForm {
+    padding: 7.5%;
+    background-color: rgba(255, 255, 255, 0.837);
+    border-radius: 5px;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: rgb(85, 108, 133) 0px 20px 30px -10px;
 
+}
 .formAlign {
     display: flex !important; 
-    width: 350px !important;
-    background-color: white;
+    
+    
     justify-content: center !important;
+    
     
 }
 
@@ -52,4 +61,12 @@
     transform: scale(1.2);
 } 
 
- 
+@media only screen and (max-width: 600px){
+.boxForm {
+    padding-top: 15%;
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+}
