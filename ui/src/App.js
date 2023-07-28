@@ -11,6 +11,7 @@ import Packages from './components/Packages';
 import Teacher from './components/Teacher';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
+import Menu from './components/Menu';
 
 
 
@@ -32,6 +33,8 @@ function App() {
         <Route path='/contact' element={<Contact />}/>
         <Route path='/packages' element={<Packages />}/>
         <Route path='/teacher' element={<Teacher />}/>
+        <Route path='/menu' element={isAuthenticated ? <Menu /> : <Navigate to='/login'/>}/>
+        <Route path='/dashboard/*' element={isAuthenticated ? <Menu /> : <Navigate to='/login'/>}/>
         <Route path='/cart' element={isAuthenticated ? <Cart /> : <Navigate to="/login" />}/>
       </Routes>
       <Footer />

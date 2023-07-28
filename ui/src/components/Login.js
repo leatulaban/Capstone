@@ -38,9 +38,9 @@ function Login () {
         console.log(hasRole);
 
         if(hasRole === 'admin') {
-          navigate('/admin');
+          navigate('/menu');
         }else{
-          navigate('/');
+          navigate('/cart');
         }
         // navigate('/cart');
       } catch (error) {
