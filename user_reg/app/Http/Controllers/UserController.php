@@ -34,7 +34,7 @@ class UserController extends Controller
 
     $token = $user->createToken('LaravelTokenPassword')->accessToken;
 
-    $response = ['token' => $token, 'message' => 'User Successfully Created'];
+    $response = ['token' => $token, 'message' => 'User Successfully Created', 'user' => $user ];
     return $response;
 
 }
@@ -56,7 +56,7 @@ public function login(Request $request){
 
         if($check_password){
             $token = $user->createToken('LaravelTokenPassword')->accessToken;
-            $response = ['token' => $token, 'message' => 'Successfully logged in!'];
+            $response = ['token' => $token, 'message' => 'Successfully logged in!', 'user' => $user];
             return $response;
 
         }else{

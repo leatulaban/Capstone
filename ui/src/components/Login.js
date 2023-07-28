@@ -34,7 +34,15 @@ function Login () {
         const token = response.data.token;
         
         localStorage.setItem('login_token',token);
-        navigate('/cart');
+        const hasRole = response.data.user.role ?? '';
+        console.log(hasRole);
+
+        if(hasRole === 'admin') {
+          navigate('/admin');
+        }else{
+          navigate('/');
+        }
+        // navigate('/cart');
       } catch (error) {
         let errorMessage = error.response.data.error;
         setError(errorMessage);
