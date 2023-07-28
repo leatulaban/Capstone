@@ -30,7 +30,7 @@ function App() {
         <Route path='/contact' element={<Contact />}/>
         <Route path='/packages' element={<Packages />}/>
         <Route path='/teacher' element={<Teacher />}/>
-        <Route path='/cart' element={isAuthenticated ? <Cart /> : <Navigate to="/home" />}/>
+        <Route path='/cart' element={isAuthenticated ? <Cart /> : <Navigate to="/login" />}/>
       </Routes>
       <Footer />
     </Router>
