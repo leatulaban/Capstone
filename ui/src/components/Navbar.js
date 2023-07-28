@@ -14,7 +14,7 @@ const Navbar = () => {
 	
 	const handleLogin =() => {
 		localStorage.setItem('login_token', 'your_login_token_here');
-		navigate('/login');
+		navigate('/cart');
 	}
 
 	const handleLogout =() => {

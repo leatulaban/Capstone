@@ -48,8 +48,13 @@ export default function Signup() {
                   theme: "dark",
                   });
           } catch (error) {
+            if(error.response.status === 500){
+              setError('Name & Email already taken!');
+              
+            }else{
             let errorMessage = error.response.data.error;
             setError(errorMessage);
+            }
           }
            setSubmitLoading(false);
         }
@@ -80,10 +85,10 @@ export default function Signup() {
 
   return (
     <Container>
-      <Box component="form" >
+      <Box component="form" className="boxForm" >
        {error && <Alert severity="warning">{error}</Alert>} 
       <Grid container spacing={0} className = 'formAlign'>
-        <Grid item xs={12} sm={4} className='fontSize'> Name: 
+        <Grid item xs={12} sm={5} className='fontSize'> 
         <TextField 
           fullWidth
           required
@@ -97,7 +102,7 @@ export default function Signup() {
       </Grid>
       
       <Grid container spacing={0} className = 'formAlign'>
-        <Grid item xs={12} sm={4} className='fontSize'>Email: 
+        <Grid item xs={12} sm={5} className='fontSize'>
         <TextField 
           fullWidth
           required
@@ -112,7 +117,7 @@ export default function Signup() {
       </Grid>
 
       <Grid container spacing={0} className = 'formAlign'>
-        <Grid item xs={12} sm={4} className='fontSize'> Password:
+        <Grid item xs={12} sm={5} className='fontSize'> 
         <TextField 
           fullWidth
           required
@@ -128,7 +133,7 @@ export default function Signup() {
       </Grid>
      
       <Grid container spacing={0} className = 'formAlign'>
-        <Grid item xs={12} sm={4} className='fontSize'>
+        <Grid item xs={12} sm={5} className='fontSize'>
           <Button 
           className="buttonSubmit3" 
           type='submit'   
@@ -139,7 +144,7 @@ export default function Signup() {
       </Grid> 
 
       <Grid container spacing={0} className = 'formAlign'>
-        <Grid item xs={12} sm={4} className='fontSize'>
+        <Grid item xs={12} sm={5} className='fontSize'>
           <Button 
           className="buttonSubmit4" 
           type='submit'  
