@@ -89,7 +89,7 @@ export default function Signup() {
           required
           id="outlined-required"
           label=" Name"
-          onChange={ handleOnChange}
+          onChange={handleOnChange}
           name= "name"
           value={signUp.name}
         />
@@ -104,7 +104,7 @@ export default function Signup() {
           id="outlined-required"
           type="email"
           label="Enter valid email"
-          onChange={ handleOnChange}
+          onChange={handleOnChange}
           name= "email"
           value={signUp.email}
         />

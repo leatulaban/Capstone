@@ -13,6 +13,8 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 
 
+
+
 function App() {
 
   const isAuthenticated = localStorage.getItem('login_token');
@@ -30,7 +32,7 @@ function App() {
         <Route path='/contact' element={<Contact />}/>
         <Route path='/packages' element={<Packages />}/>
         <Route path='/teacher' element={<Teacher />}/>
-        <Route path='/cart' element={isAuthenticated ? <Cart /> : <Navigate to="/home" />}/>
+        <Route path='/cart' element={isAuthenticated ? <Cart /> : <Navigate to="/login" />}/>
       </Routes>
       <Footer />
     </Router>

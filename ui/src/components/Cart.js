@@ -1,23 +1,77 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react';
-import dayjs from 'dayjs';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import Time from './Time';
+// import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Cart = () => {
- 
-  const [selectedDate, setSelectedDate] = useState(dayjs('2023-07-21'));
-  const [selectedTime, setSelectedTime] = useState('');
 
-  const handleAddToCart = () => {
-    console.log('Date:', selectedDate.format('YYYY-MM-DD'));
-    console.log('Time:', selectedTime);
+  // const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+
+ 
+  const handleAddToCart = (itemName, price) => {
+    if (selectedDate && selectedTime) {
+      const newItem = {
+        name: itemName,
+        date: selectedDate,
+        time: selectedTime,
+        price: price,
+      };
+      setCartItems([...cartItems, newItem]);
+    }
   };
+
+  const handleTimeSelect = (date, time) => {
+    setSelectedDate(date);
+    setSelectedTime(time);
+  };
+
+  const handleDeleteItem = (index) => {
+    const updatedItems = [...cartItems];
+    updatedItems.splice(index, 1);
+    setCartItems(updatedItems);
+  };
+
+  // const handleCheckout = () => {
+  //   navigate('./checkout');
+  // };
+
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const dataToSend = {
+      selectedDate,
+      selectedTime,
+    };
+    axios({
+      method: "POST",
+      url: "http://localhost:3002/send",
+      data: dataToSend,
+    })
+      .then((response) => {
+        if (response.data.status === 'success') {
+          alert("Message Sent.");
+          setSelectedDate(null);
+          setSelectedTime(null);
+        } else if (response.data.status === 'fail') {
+          alert("Message failed to send.");
+        }
+      })
+      .catch((error) => {
+        console.error('API Error:', error);
+        alert("An error occurred while processing your request.");
+      });
+  };
+
   return (
+    <>
     <div id="packagemenu">
       <h2>Rates</h2>
         <ul>
@@ -27,25 +81,8 @@ const Cart = () => {
             <span className="Description">Inclusion of 2 guitars, 1 bass guitar, 1 drumset.</span>
             <div>
               <div className='add2Cart'>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    components={[
-                      'DatePicker',
-                      'TimePicker',
-                    ]}
-                  >
-                    <DemoItem label="Date">
-                      <DatePicker defaultValue={dayjs('2023-07-21')} value={selectedDate}
-                                  onChange={(date) => setSelectedDate(date)}/>
-                    </DemoItem>
-                    <DemoItem label="Time">
-                      <TimePicker defaultValue={dayjs('2022-04-17T15:30')} value={selectedTime}
-                                  onChange={(time) => setSelectedTime(time)}/>
-                    </DemoItem>
-                  </DemoContainer>
-                </LocalizationProvider>
-                <Button  onClick={handleAddToCart} >Add to Cart</Button>
-                <p>Selected Time: {selectedTime}</p>
+                <Time  onSelect={handleTimeSelect}/>
+                <Button  onClick={() => handleAddToCart("Band Rehearsal", 300)} >Add to Cart</Button>
               </div>
             </div>
           </li>
@@ -54,25 +91,8 @@ const Cart = () => {
             <span className="Price">₱600 per hour</span>
             <span className="Description">This is live recording. All instruments recorded together.</span>
             <div className='add2Cart'>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    components={[
-                      'DatePicker',
-                      'TimePicker',
-                    ]}
-                  >
-                    <DemoItem label="Date">
-                      <DatePicker defaultValue={dayjs('2023-07-21')} value={selectedDate}
-                                  onChange={(date) => setSelectedDate(date)}/>
-                    </DemoItem>
-                    <DemoItem label="Time">
-                      <TimePicker defaultValue={dayjs('2022-04-17T15:30')} value={selectedTime}
-                                  onChange={(time) => setSelectedTime(time)}/>
-                    </DemoItem>
-                  </DemoContainer>
-                </LocalizationProvider>
-                <Button  onClick={handleAddToCart} >Add to Cart</Button>
-                <p>Selected Time: {selectedTime}</p>
+                <Time  onSelect={handleTimeSelect}/>
+                <Button   onClick={() => handleAddToCart("Recording", 600)} >Add to Cart</Button>
               </div> 
           </li>
           <li>
@@ -80,25 +100,8 @@ const Cart = () => {
             <span className="Price">₱1200 per hour</span>
             <span className="Description">Instruments and vocals are recorded individually.</span>
             <div className='add2Cart'>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    components={[
-                      'DatePicker',
-                      'TimePicker',
-                    ]}
-                  >
-                    <DemoItem label="Date">
-                      <DatePicker defaultValue={dayjs('2023-07-21')} value={selectedDate}
-                                  onChange={(date) => setSelectedDate(date)}/>
-                    </DemoItem>
-                    <DemoItem label="Time">
-                      <TimePicker defaultValue={dayjs('2022-04-17T15:30')} value={selectedTime}
-                                  onChange={(time) => setSelectedTime(time)}/>
-                    </DemoItem>
-                  </DemoContainer>
-                </LocalizationProvider>
-                <Button  onClick={handleAddToCart} >Add to Cart</Button>
-                <p>Selected Time: {selectedTime}</p>
+                <Time  onSelect={handleTimeSelect}/>
+                <Button  onClick={() => handleAddToCart("Track recording", 1200)} >Add to Cart</Button>
               </div>  
           </li>
           <li>
@@ -106,29 +109,32 @@ const Cart = () => {
             <span className="Price">₱500 per hour</span>
             <span className="Description">1-on-1 session for voice, guitar, bass, drums and piano lessons</span>
             <div className='add2Cart'>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    components={[
-                      'DatePicker',
-                      'TimePicker',
-                    ]}
-                  >
-                    <DemoItem label="Date">
-                      <DatePicker defaultValue={dayjs('2023-07-21')} value={selectedDate}
-                                  onChange={(date) => setSelectedDate(date)}/>
-                    </DemoItem>
-                    <DemoItem label="Time">
-                      <TimePicker defaultValue={dayjs('2022-04-17T15:30')} value={selectedTime}
-                                  onChange={(time) => setSelectedTime(time)}/>
-                    </DemoItem>
-                  </DemoContainer>
-                </LocalizationProvider>
-                <Button  onClick={handleAddToCart} >Add to Cart</Button>
-                <p>Selected Time: {selectedTime}</p>
+                <Time  onSelect={handleTimeSelect}/>
+                <Button onClick={() => handleAddToCart("Lessons", 500)} >Add to Cart</Button>
               </div> 
           </li>
-        </ul>         
+        </ul>
+        
+      <div>
+        <h2>Cart Items</h2>
+        {cartItems.length === 0 ? (
+          <p>No items in the cart</p>
+        ) : (
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={index}>
+                {item.name} - Date: {item.date}, Time: {item.time}, Price: ₱{item.price}
+                <button onClick={() => handleDeleteItem(index)}>Close</button>
+              </li>      
+            ))}
+          </ul>
+        )}
+        <h3>Total: ₱{calculateTotal()}</h3>
+      </div>
+      <h5>Please wait for the confirmation of date and time via email. Thank you.</h5>
+      <Button onClick={handleSubmit}>Confirm!</Button>
     </div>
+    </>
   );
 };
 
