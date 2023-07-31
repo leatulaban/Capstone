@@ -106,7 +106,7 @@ export default function Menu() {
   }
 
   return (
-    <Box id="dash-body" sx={{ display: 'flex', backgroundColor: 'white', marginTop: '-100px', zIndex: 100}}>
+    <Box id="dash-body" sx={{ display: 'flex', backgroundColor: 'white', marginTop: '-50px', zIndex: 100}}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -153,7 +153,7 @@ export default function Menu() {
         <Divider />
         <List>
 
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                 {<DashboardCustomizeIcon sx={{color:'blue'}}/>}
@@ -164,7 +164,7 @@ export default function Menu() {
                 onClick={() => handleMenuClick('/dashboard')}
                 > Dashboard </Button>} />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
 
             <ListItem disablePadding>
               <ListItemButton>

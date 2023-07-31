@@ -1,10 +1,15 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Packages = () => {
 
+    const navigate = useNavigate();
+
+    const handleBookNow = () => {
+        navigate('/login');
+      }
 	return (
 		<div className="package">   
             <div className="PackageIntro">     
@@ -14,10 +19,10 @@ const Packages = () => {
                 <h2>Rates</h2>
                 <Button className="packageButton"
                         variant="contained" 
-                        color="success" 
                         style= {{marginLeft:"250px",marginTop:"-80px",width:"120px",height:"45px"}}
+                        onClick={handleBookNow}
                 >
-                <Link to='/login'>Book Now! </Link></Button>
+                Book Now!</Button>
                 <ul>
                     <li>
                         <span className="Rate">Band rehearsal</span>

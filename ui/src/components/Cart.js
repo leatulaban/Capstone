@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Time from './Time';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +11,31 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        const response = await axios.get('http://127.0.0.1:8000/api/services', {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('login_token'),
+          }
+        })
+        let services = response.data.services;
+        setData(services);
+        setLoading(false);
+      }catch(error){
+        console.log(error);
+        setLoading(false);
+      }
+    }
+   
+    fetchData();
 
+
+  }, [])
+  
  
   const handleAddToCart = (itemName, price) => {
     if (selectedDate && selectedTime) {
@@ -20,6 +44,7 @@ const Cart = () => {
         date: selectedDate,
         time: selectedTime,
         price: price,
+        
       };
       setCartItems([...cartItems, newItem]);
     }
@@ -75,7 +100,20 @@ const Cart = () => {
     <div id="packagemenu">
       <h2>Rates</h2>
         <ul>
-          <li>
+                {data && data.map(d => {
+                  return <li key={d.id}>
+                       <span className="Rate">{d.service_name}</span>
+                <span className="Price">₱{d.service_price} per hour</span>
+                <span className="Description">{d.details}</span>
+                <div>
+                  <div className='add2Cart'>
+                    <Time  onSelect={handleTimeSelect}/>
+                    <Button  onClick={() => handleAddToCart(d.service_name, d.service_price)} >Add to Cart</Button>
+                  </div>
+                </div>
+                  </li>
+                })}
+          {/* <li>
             <span className="Rate">Band rehearsal</span>
             <span className="Price">₱300 per hour</span>
             <span className="Description">Inclusion of 2 guitars, 1 bass guitar, 1 drumset.</span>
@@ -112,7 +150,7 @@ const Cart = () => {
                 <Time  onSelect={handleTimeSelect}/>
                 <Button onClick={() => handleAddToCart("Lessons", 500)} >Add to Cart</Button>
               </div> 
-          </li>
+          </li> */}
         </ul>
         
       <div>

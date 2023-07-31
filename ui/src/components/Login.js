@@ -7,8 +7,11 @@ import './Signup.js';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import Signup from './Signup.js';
+import toast, { Toaster } from 'react-hot-toast';
 
 function Login () {
+
+  const notify = () => toast('Successfully logged in!');
 
    const navigate = useNavigate();
 
@@ -38,6 +41,7 @@ function Login () {
         console.log(hasRole);
 
         if(hasRole === 'admin') {
+          notify();
           navigate('/menu');
         }else{
           navigate('/cart');
@@ -112,6 +116,7 @@ function Login () {
           type='Submit'  
           onClick={handleLogin}
           disabled={submitLoading}
+
           >
           {submitLoading ? <CircularProgress color="inherit" size={'10px'} />:''}Login
           </Button>
